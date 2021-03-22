@@ -20,5 +20,34 @@ namespace DataStructuresTest
             // Assert
             Assert.AreEqual(expected, actual);
         }
+        
+        [TestMethod]
+        public void Binary_NewTreeOneInput_Size_Returns_1()
+        {
+            // Arrange
+            BinaryTree tree = new BinaryTree(1);
+
+            // Assert Exception
+            int expected = tree.size();
+            int actual = 1;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_TwoNodeTree_Size_Returns_2()
+        {
+            // Arrange
+            BinaryTree tree = new BinaryTree(1);
+            tree.add(2);
+
+            // Assert Exception
+            int expected = tree.size();
+            int actual = 2;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
