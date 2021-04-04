@@ -191,6 +191,107 @@ namespace DataStructuresTest
             Assert.AreEqual(expected, actual);
         }
         
+        [TestMethod]
+        public void Binary_EmptyHashTable_doesKeyExist_Returns_False()
+        {
+            // Arrange
+            HashTable hash = new HashTable();
+
+            // Act
+            bool actual = hash.doesKeyExist(1);
+            bool expected = false;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTableKey1Value1_doesKeyExist1_Returns_True()
+        {
+            // Arrange
+            HashTable hash = new HashTable(1, 1);
+
+            // Act
+            bool actual = hash.doesKeyExist(1);
+            bool expected = true;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTableKey19Value1_doesKeyExist0_Returns_False()
+        {
+            // Arrange
+            HashTable hash = new HashTable(19, 1);
+
+            // Act
+            bool actual = hash.doesKeyExist(0);
+            bool expected = false;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTableKey19_AddKey0_doesKeyExist0_Returns_True()
+        {
+            // Arrange
+            HashTable hash = new HashTable(19, 1);
+            hash.add(0, 1);
+
+            // Act
+            bool actual = hash.doesKeyExist(0);
+            bool expected = true;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTable_Remove_getSize_Returns_0()
+        {
+            // Arrange
+            HashTable hash = new HashTable(19, 1);
+            hash.remove(19);
+
+            // Act
+            int actual = hash.getSize();
+            int expected = 0;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTable_Remove_Returns_1()
+        {
+            // Arrange
+            HashTable hash = new HashTable(19, 1);
+
+            // Act
+            int actual = hash.remove(19);
+            int expected = 1;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestMethod]
+        public void Binary_HashTable_AddKey0Value2_Remove_Returns_2()
+        {
+            // Arrange
+            HashTable hash = new HashTable(19, 1);
+            hash.add(0, 2);
+
+            // Act
+            int actual = hash.remove(0);
+            int expected = 2;
+            
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
     }
 
     [TestClass]
@@ -217,6 +318,30 @@ namespace DataStructuresTest
 
             // Assert Exception
             int actual = hash.getValue(0);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void Binary_EmptyHashTable_Remove_Exception()
+        {
+            // Arrange
+            HashTable hash = new HashTable();
+
+            // Assert Exception
+            hash.remove(19);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void Binary_HashTable_AddRemove_getValue_Exception()
+        {
+            // Arrange
+            HashTable hash = new HashTable();
+            hash.add(19, 1);
+            hash.remove(19);
+
+            // Assert Exception
+            hash.getValue(19);
         }
     }
 }

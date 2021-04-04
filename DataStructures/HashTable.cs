@@ -18,24 +18,53 @@ namespace DataStructures {
       size = 1;
     }
 
-    public void add(int key, int value) {
-      if(array[key % array.Length] == null) {
-        array[key % array.Length] = new HashNode(key, value);
-        size++;
-      } else {
+    public int remove(int key) {
+      int ret = -1;
+      if(!doesKeyExist(key)) {
+        throw new KeyNotFoundException();
+      }
+      else {
         HashNode runner = array[key % array.Length];
         if(runner.key == key) {
-            runner.value = value;
-            return;
-          }
-        while(runner.next != null) {
+          ret = runner.value;
+          array[key % array.Length] = runner.next;
+          size--;
+        }
+        return ret;
+      }
+    }
+    
+    public bool doesKeyExist(int key) {
+      HashNode runner = array[key % array.Length];
+      while(runner != null) {
+        if(runner.key == key) {
+          return true;
+        }
+        runner = runner.next;
+      }
+      return false;
+    }
+
+    public void add(int key, int value) {
+      if(doesKeyExist(key)) {
+        HashNode runner = array[key % array.Length];
+        while(runner != null) {
           if(runner.key == key) {
             runner.value = value;
             return;
           }
           runner = runner.next;
         }
-        runner.next = new HashNode(key, value);
+      } else {
+        if(array[key % array.Length] == null) {
+          array[key % array.Length] = new HashNode(key, value);
+        } else {
+          HashNode runner = array[key % array.Length];
+          while(runner.next != null) {
+            runner = runner.next;
+          }
+          runner.next = new HashNode(key, value);
+        }
         size++;
       }
       if(size >= array.Length/2) {
